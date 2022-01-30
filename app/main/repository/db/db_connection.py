@@ -8,10 +8,6 @@ from app.main.config import Config
 def close_db(error):
     pass
 
-    #if hasattr(g, 'neo4j_db'):
-    #    g.neo4j_db
-
-
 def db():
     if not hasattr(g, 'neo4j_db'):
         g.neo4j_db = Graph(Config.NEO4J_URL, auth=(Config.NEO4J_USERNAME, Config.NEO4J_PW))

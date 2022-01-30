@@ -42,9 +42,9 @@ def login_user(self, user, password):
 
 class TestAuthBlueprint(BaseUnitTestCase):
 
-    # @patch('app.main.repository.user_repository.create_user')
-    # @patch('app.main.repository.user_repository.is_in_use')
-    # @patch('app.main.repository.blacklist_repository.is_token_blacklisted')
+    @patch('app.main.repository.user_repository.create_user')
+    @patch('app.main.repository.user_repository.is_in_use')
+    @patch('app.main.repository.blacklist_repository.is_token_blacklisted')
     def test_user_registration(self, mock_token_blacklisted, mock_user_in_use, mock_save_user):
         # GIVEN
         user = get_test_user()
@@ -59,7 +59,7 @@ class TestAuthBlueprint(BaseUnitTestCase):
             self.assertTrue(response_data['Authorization'])
             self.assertEqual(user_response.status_code, 201)
 
-    # @patch('app.main.repository.user_repository.get_user')
+    @patch('app.main.repository.user_repository.get_user')
     def test_user_login(self, mock_get_user):
         # GIVEN
         user = get_test_user()
@@ -71,7 +71,7 @@ class TestAuthBlueprint(BaseUnitTestCase):
         self.assertTrue(data['Authorization'])
         self.assertEqual(login_response.status_code, 200)
 
-    # @patch('app.main.repository.user_repository.get_user')
+    @patch('app.main.repository.user_repository.get_user')
     def test_user_login_no_user_found(self, mock_get_user):
         # GIVEN
         user = get_test_user()
@@ -83,7 +83,7 @@ class TestAuthBlueprint(BaseUnitTestCase):
         self.assertTrue(data['status'] == 'fail')
         self.assertEqual(login_response.status_code, 401)
 
-    # @patch('app.main.repository.user_repository.get_user')
+    @patch('app.main.repository.user_repository.get_user')
     def test_user_login_wrong_password(self, mock_get_user):
         # GIVEN
         user = get_test_user()
@@ -95,9 +95,9 @@ class TestAuthBlueprint(BaseUnitTestCase):
         self.assertTrue(data['status'] == 'fail')
         self.assertEqual(login_response.status_code, 401)
 
-    # @patch('app.main.repository.blacklist_repository.save_token')
-    # @patch('app.main.repository.blacklist_repository.is_token_blacklisted')
-    # @patch('app.main.repository.user_repository.get_user')
+    @patch('app.main.repository.blacklist_repository.save_token')
+    @patch('app.main.repository.blacklist_repository.is_token_blacklisted')
+    @patch('app.main.repository.user_repository.get_user')
     def test_user_logout(self, mock_get_user, mock_token_blacklisted, mock_save_blacklisted_token):
         # GIVEN
         user = get_test_user()

@@ -3,8 +3,6 @@ from unittest.mock import patch
 
 from test.unit.base import BaseUnitTestCase
 from app.main.model.user import User
-from app.main.model.blacklist_token import ERR_MSG_TOKEN_BLACKLISTED
-
 
 def create_test_user(identifier=1, username='test', email='test@test.com', password='test'):
     user = User.create(username=username, password=password, email=email)
@@ -42,7 +40,6 @@ class TestUserModel(BaseUnitTestCase):
         auth_token = user.encode_auth_token(user.identifier)
         # THEN
         self.assertTrue(isinstance(auth_token, bytes))
-        self.assertEqual(User.decode_auth_token(auth_token.decode("utf-8")), ERR_MSG_TOKEN_BLACKLISTED)
 
 
 if __name__ == '__main__':
